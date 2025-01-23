@@ -52,9 +52,7 @@ what is openvino? OpenVINO is an open-source software development kit (SDK) for 
 ```
 
 ## Limitation
-This only works for llama3.1-8b GGUF, other models might need to modify the mapping of `get_params_from_model` in `convert_llama3.1_gguf_to_torch.py`
-
-Currently not support the GGUF with `.imatrix`.
+Only Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf is verified currently, other models might need to modify the mapping of `get_params_from_model` in `convert_llama3.1_gguf_to_torch.py`
 
 
 ## Reference:
