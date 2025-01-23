@@ -8,14 +8,14 @@ Prepare a server with at least 32GB Mem.
 ```bash
 pip install -r requirements.txt
 ```
-Refer to [optimum-cli's requirements](https://github.com/openvinotoolkit/openvino.genai/tree/releases/2024/6/samples)
+
 ### Download GGUF model
-https://huggingface.co/trinhvanhung/Meta-Llama-3.1-8B-Instruct-Q4_K_M/tree/main
+[trinhvanhung/Meta-Llama-3.1-8B-Instruct-Q4_K_M](https://huggingface.co/trinhvanhung/Meta-Llama-3.1-8B-Instruct-Q4_K_M/tree/main)
 ```bash
 python download_hf_gguf.py
 ```
 Output: `./Meta-Llama-3.1-8B-Instruct-Q4_K_M`
-`Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf` 4.6G
+`Q4_K_M.gguf` 4.6G
 
 ## Step 1: Convert GGUF Model into FP16 PyTorch Model
 
@@ -53,12 +53,18 @@ what is openvino? OpenVINO is an open-source software development kit (SDK) for 
 
 ## Limitation
 This only works for llama3.1-8b GGUF, other models might need to modify the mapping of `get_params_from_model` in `download_hf_gguf.py`
-Currently not support the GGUF with .imatrix.
+Currently not support the GGUF with `.imatrix`.
 
 
 ## Reference:
 GGUF: https://github.com/huggingface/hub-docs/blob/main/docs/hub/gguf.md
+
 gguf_reader: https://github.com/ggerganov/llama.cpp/blob/master/gguf-py/gguf/gguf_reader.py
+
 convert gguf to torch: https://github.com/chu-tianxiang/llama-cpp-torch/blob/main/convert.py
+
 ov genai pipeline: https://docs.openvino.ai/2024/learn-openvino/llm_inference_guide/genai-guide.html
+
+ov genai requirements: https://github.com/openvinotoolkit/openvino.genai/tree/releases/2024/6/samples
+
 pytorch pipeline: https://huggingface.co/trinhvanhung/Meta-Llama-3.1-8B-Instruct-Q4_K_M
