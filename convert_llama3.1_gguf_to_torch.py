@@ -4,7 +4,7 @@ import gguf
 import numpy as np
 from gguf_reader import GGUFReader
 
-def reverse_premute(weights, n_head=32):
+def reverse_permute(weights, n_head=32):
     return weights.reshape((n_head, weights.shape[0] // n_head // 2, 2, *weights.shape[1:])) \
                   .swapaxes(1, 2) \
                   .reshape(weights.shape)
@@ -18,8 +18,8 @@ def get_params_from_model(gguf_model):
     ConstDict['lm_head.weight'] = gguf_model['output.weight']
 
     for index in range(32):
-        ConstDict['model.layers.{index}.self_attn.q_proj.weight'.format(index=index)] = reverse_premute(gguf_model['blk.{index}.attn_q.weight'.format(index=index)], n_head=32)
-        ConstDict['model.layers.{index}.self_attn.k_proj.weight'.format(index=index)] = reverse_premute(gguf_model['blk.{index}.attn_k.weight'.format(index=index)], n_head=8)
+        ConstDict['model.layers.{index}.self_attn.q_proj.weight'.format(index=index)] = reverse_permute(gguf_model['blk.{index}.attn_q.weight'.format(index=index)], n_head=32)
+        ConstDict['model.layers.{index}.self_attn.k_proj.weight'.format(index=index)] = reverse_permute(gguf_model['blk.{index}.attn_k.weight'.format(index=index)], n_head=8)
         ConstDict['model.layers.{index}.self_attn.v_proj.weight'.format(index=index)] = gguf_model['blk.{index}.attn_v.weight'.format(index=index)]
         ConstDict['model.layers.{index}.self_attn.o_proj.weight'.format(index=index)] = gguf_model['blk.{index}.attn_output.weight'.format(index=index)]
         ConstDict['model.layers.{index}.mlp.gate_proj.weight'.format(index=index)] = gguf_model['blk.{index}.ffn_gate.weight'.format(index=index)]
